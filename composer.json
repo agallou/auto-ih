@@ -3,7 +3,9 @@
   "description": "Automatisation utilisation outils ATIH via des API",
   "license": "MIT",
   "require": {
-    "silex/silex": "1.0.*"
+    "silex/silex": "1.0.*",
+    "symfony/console": "2.*",
+    "symfony/finder": "2.*"
   },
   "autoload": {
     "psr-0": { "AutoIh": "src/" }

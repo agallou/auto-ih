@@ -1,0 +1,10 @@
+Install dependancies
+```
+curl -s http://getcomposer.org/installer | php
+```
+
+then 
+
+```
+php composer.phar  install
+```

@@ -1,0 +1,11 @@
+{
+  "name": "auto-ih/auto-ih",
+  "description": "Automatisation utilisation outils ATIH via des API",
+  "license": "MIT",
+  "require": {
+    "silex/silex": "1.0.*",
+  },
+  "autoload": {
+    "psr-0": { "AutoIh": "src/" },
+  }
+}

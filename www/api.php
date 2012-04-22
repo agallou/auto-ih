@@ -64,7 +64,7 @@ $app->post('/genrsa/2012/send', function () use ($app) {
   return json_encode($infos);
 });
 
-$app->post('/genrsa/2012/{id}/status', function ($id) use ($app) {
+$app->get('/genrsa/2012/{id}/status', function ($id) use ($app) {
   $status  = 0;
   $message = 'OK';
   $content = array();

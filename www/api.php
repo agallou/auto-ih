@@ -69,6 +69,23 @@ $app->get('/genrsa/2012/{id}/status', function ($id) use ($app) {
   $message = 'OK';
   $content = array();
 
+  $folders = array(
+    'ok'       => 'SUCCESS',
+    'incoming' => 'WAITING',
+    'current'  => 'RUNNING',
+    'not_ok'   => 'ERROR',
+  );
+  $genrsaStatus  = null;
+  foreach (array_keys($folders) as $folder)
+  {
+    $dir = $app['config']['working_dir']  . '/' .$folder . '/' . $id;
+    if (is_readable($dir))
+    {
+      $genrsaStatus = $folders[$folder];
+    }
+  }
+  $content['status'] = $genrsaStatus;
+
   $infos = array('status' => $status, 'message' => $message, 'content' => $content);
   return json_encode($infos);
 });

@@ -1,6 +1,9 @@
 <?php
 require_once '../vendor/.composer/autoload.php';
 
+use Symfony\Component\Finder\Finder;
+
+
 $app = new Silex\Application();
 
 $config = new Pimple();
@@ -90,10 +93,20 @@ $app->get('/genrsa/2012/{id}/status', function ($id) use ($app) {
   return json_encode($infos);
 });
 
-$app->post('/genrsa/2012/{id}/file/{type}', function ($id) use ($app) {
+$app->get('/genrsa/2012/{id}/file/{type}', function ($id) use ($app, $config) {
   $status  = 0;
   $message = 'OK';
   $content = array();
+
+  $okDir   =  $app['config']['working_dir'] . '/ok/' . $id;
+
+  $finder = new Finder();
+  $finder->files()->name('*.zip')->in($okDir);
+  if (count($finder) == 1)
+  {
+    $files = array_values(iterator_to_array($finder));
+    return file_get_contents($files[0]);
+  }
 
   $infos = array('status' => $status, 'message' => $message, 'content' => $content);
   return json_encode($infos);

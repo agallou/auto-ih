@@ -59,6 +59,7 @@ $app->post('/genrsa/2012/send', function () use ($app) {
   }
   catch (Exception $e)
   {
+    rmdir($dir);
     $status = $e->getCode();
     $message = $e->getMessage();
   }

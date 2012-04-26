@@ -10,9 +10,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
 
-class WorkerRunGenrsa extends Command
+class WorkerRunGenrsa extends BaseWorker
 {
 
+  /**
+   * configure
+   *
+   * @return void
+   */
   protected function configure()
   {
     $this
@@ -24,49 +29,17 @@ class WorkerRunGenrsa extends Command
     ;
   }
 
-  protected function execute(InputInterface $input, OutputInterface $output)
+  /**
+   * process
+   *
+   * @param OutputInterface $output
+   * @param string          $currentPath
+   *
+   * @return void
+   */
+  protected function process(OutputInterface $output, $currentPath)
   {
-    $path     = $input->getArgument('path');
-    $incoming = $path . '/incoming';
-    if (!is_readable($incoming))
-    {
-      mkdir($incoming);
-    }
-    $finder = new Finder();
-    $finder->directories()->in($incoming);
-
-    $currentPath = null;
-    $id          = null;
-    foreach ($finder as $file)
-    {
-      $filepath = $file->getPathName();
-      if (is_file($filepath . DIRECTORY_SEPARATOR . 'ok'))
-      {
-        $currentPath = $filepath;
-        $id          = $file->getBaseName();
-        break;
-      }
-    }
-    if (null === $currentPath)
-    {
-      $output->writeln('No files to process');
-      return;
-    }
-    $output->writeln(sprintf('<info>Folder to process </info>%s', $filepath));
-    $current = $path . '/current';
-    if (!is_readable($current))
-    {
-      mkdir($current);
-    }
-    $currentPathId = $current . DIRECTORY_SEPARATOR . $id;
-    rename($currentPath, $currentPathId);
-    exec(sprintf('Y:\2012.exe %s', escapeshellarg(str_replace('/', '\\', $currentPathId))));
-    $ok = $path . '/ok';
-    if (!is_readable($ok))
-    {
-      mkdir($ok);
-    }
-    rename($currentPathId, $ok . DIRECTORY_SEPARATOR . $id);
+    exec(sprintf('.\bin\genrsa\2012.exe %s', escapeshellarg(str_replace('/', '\\', $currentPath))));
   }
 
 }

@@ -9,10 +9,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use Autoih\Command\WorkerRun;
+use Autoih\Command\WorkerRunGenrsa;
+use Autoih\Command\WorkerRunEpmsi;
 
 $console = new Application('auto-ih', '0.1');
 
 $console->add(new WorkerRunGenrsa());
+$console->add(new WorkerRunEpmsi());
 
 $console->run();

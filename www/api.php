@@ -2,13 +2,14 @@
 require_once '../vendor/.composer/autoload.php';
 
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\DomCrawler\Crawler;
 
 
 $app = new Silex\Application();
 
 $config = new Pimple();
-$config['working_dir']  = '/media/autoih_worker';
-$config['incoming_dir'] = '/media/autoih_worker/incoming';
+$config['genrsa_working_dir'] = '/media/autoih_worker/genrsa/';
+$config['epmsi_working_dir']  = '/media/autoih_worker/epmsi/';
 
 
 $app['config'] = $config;
@@ -17,14 +18,15 @@ $app['debug'] = true;
 
 $app->post('/genrsa/2012/send', function () use ($app) {
 
-  if (!is_readable($app['config']['incoming_dir']))
+  $incoming = $app['config']['genrsa_working_dir'] . '/incoming';
+  if (!is_readable($incoming))
   {
-    mkdir($app['config']['incoming_dir']);
+    mkdir($incoming);
   }
 
   $id  = md5(microtime());
 
-  $dir = $app['config']['incoming_dir'] . DIRECTORY_SEPARATOR . $id;
+  $dir = $incoming . DIRECTORY_SEPARATOR . $id;
   mkdir($dir);
 
   $status  = 0;
@@ -82,7 +84,7 @@ $app->get('/genrsa/2012/{id}/status', function ($id) use ($app) {
   $genrsaStatus  = null;
   foreach (array_keys($folders) as $folder)
   {
-    $dir = $app['config']['working_dir']  . '/' .$folder . '/' . $id;
+    $dir = $app['config']['genrsa_working_dir']  . '/' .$folder . '/' . $id;
     if (is_readable($dir))
     {
       $genrsaStatus = $folders[$folder];
@@ -99,7 +101,7 @@ $app->get('/genrsa/2012/{id}/file/{type}', function ($id) use ($app, $config) {
   $message = 'OK';
   $content = array();
 
-  $okDir   =  $app['config']['working_dir'] . '/ok/' . $id;
+  $okDir   =  $app['config']['genrsa_working_dir'] . '/ok/' . $id;
 
   $finder = new Finder();
   $finder->files()->name('*.zip')->in($okDir);
@@ -113,6 +115,47 @@ $app->get('/genrsa/2012/{id}/file/{type}', function ($id) use ($app, $config) {
   return json_encode($infos);
 });
 
+
+$app->post('epmsi/2012/send', function () use ($app, $config) {
+  $incoming = $app['config']['epmsi_working_dir'] . '/incoming';
+  if (!is_readable($incoming))
+  {
+    mkdir($incoming);
+  }
+
+  $id  = md5(microtime());
+
+  $dir = $incoming . DIRECTORY_SEPARATOR . $id;
+  mkdir($dir);
+
+  $status  = 0;
+  $message = 'OK';
+  $content = array();
+
+  try
+  {
+    $file = $app['request']->files->get('export_genrsa');
+    if (null === $file)
+    {
+      throw new RuntimeException('Fichier ZIP export GENRSA manquant', 1);
+    }
+    move_uploaded_file($file->getRealPath(), $dir . DIRECTORY_SEPARATOR .  'rss');
+
+    $content = array('id' => $id);
+
+    file_put_contents($dir . DIRECTORY_SEPARATOR . 'ok', '');
+  }
+  catch (Exception $e)
+  {
+    rmdir($dir);
+    $status = $e->getCode();
+    $message = $e->getMessage();
+  }
+
+  $infos = array('status' => $status, 'message' => $message, 'content' => $content);
+  return json_encode($infos);
+
+});
 
 $app->run();
 

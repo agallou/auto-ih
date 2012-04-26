@@ -39,15 +39,24 @@ class WorkerRunEpmsi extends BaseWorker
    */
   protected function process(OutputInterface $output, $currentPath)
   {
-    $connection = new \Behat\SahiClient\Connection(null, '192.168.0.52');
+    $config['sahi_userdata']  = 'C:\Documents and Settings\Administrateur\sahi\userdata';
+    $config['sahi_host']      = '192.168.0.52';
+    $config['epmsi_user']     = 'userid';
+    $config['epmsi_password'] = 'password';
+
+    $fileGenrsa = $config['sahi_userdata'] . '/export_genrsa.zip';
+    $fileEpmsi  = $currentPath .'/export_epmsi.zip';
+    copy($currentPath .'/export_genrsa.zip', $fileGenrsa);
+
+    $connection = new \Behat\SahiClient\Connection(null, $config['sahi_host']);
     $client     = new \Behat\SahiClient\Client($connection);
     $client->start('firefox');
     $url = 'https://www.epmsi.atih.sante.fr';
     $client->navigateTo($url);
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[1]/table/tbody/tr[2]/td[@class='epmsimenu0']/a")->click();
 
-    $client->findTextbox('username')->setValue('userid');
-    $client->findById('password')->setValue('password');
+    $client->findTextbox('username')->setValue($config['epmsi_user']);
+    $client->findById('password')->setValue($config['epmsi_password']);
     $client->findByXPath("//div[@id='login' and @class='box']/div[4][@class='row btn-row']/input[3][@class='btn-submit']")->click();
 
     //clic sur Applications
@@ -66,7 +75,7 @@ class WorkerRunEpmsi extends BaseWorker
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/table[1][@class='tabcolor']/tbody/tr[2]/td[5][@class='tabbodycnt']/a/b")->click();
 
     //selection du fichier
-    $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/form/table[1]/tbody/tr[4]/td/input")->setFile('test.zip');
+    $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/form/table[1]/tbody/tr[4]/td/input")->setFile('export_genrsa.zip');
 
     //click sur Envoyer
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/form/table[2]/tbody/tr/td/input")->click();
@@ -82,7 +91,7 @@ class WorkerRunEpmsi extends BaseWorker
 
     //on vérifie l'état du traitement
     $running = true;
-      //                        /html/body/table[2]/tbody/tr/td[3]/font/form/table[1][@class='tabcolor']/tbody/tr[2]/td[4][@class='tabbodycnt']/font/b
+
     while ($running)
     {
       sleep(5);
@@ -108,10 +117,11 @@ class WorkerRunEpmsi extends BaseWorker
     //clic sur Télécharger les résultats (un fichier zip contenant des *.html)
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/table[1][@class='tabcolor']/tbody/tr/td[1][@class='tabbody']/a[2]")->click();
     sleep(5);
-  //  _assertEqual("setup.exe", _lastDownloadedFileName()); // check if downloaded
-    $connection->executeStep("_sahi._saveDownloadedAs('c:/resultats.zip')"); // save to another path
+
+    $connection->executeStep(sprintf("_sahi._saveDownloadedAs('%s')", 'export_epmsi.zip')); // save to another path
 
     $client->stop();
+    copy($config['sahi_userdata'] . '/export_epmsi.zip', $fileEpmsi);
   }
 
 }

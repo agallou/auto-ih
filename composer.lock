@@ -1,10 +1,20 @@
 {
-    "hash": "beec2ec6d815c0236118854750117b99",
+    "hash": "4d38179c57223d1fd3f008a494bc9900",
     "packages": [
+        {
+            "package": "behat/sahi-client",
+            "version": "dev-master",
+            "source-reference": "v1.0.1"
+        },
+        {
+            "package": "kriswallsmith/buzz",
+            "version": "dev-master",
+            "source-reference": "56afab3ec9d8feedc3e3d7a8081c8455ae8b716f"
+        },
         {
             "package": "pimple/pimple",
             "version": "dev-master",
-            "source-reference": "f593ea9beabd16bfe1d877a193ff4d0b9a909a5a"
+            "source-reference": "2c7b104e6a5ca9207bd713892979882f1d310abc"
         },
         {
             "package": "silex/silex",
@@ -21,13 +31,13 @@
         {
             "package": "symfony/class-loader",
             "version": "dev-master",
-            "source-reference": "a0a86c4c2094831a3d229dd406c885786e532409",
+            "source-reference": "4e509e34c7b4238762aa9ea2e24162a4c0444a14",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/console",
             "version": "dev-master",
-            "source-reference": "f354e1e5d59261ae03c0fc768bfa4043c0e6ab9c",
+            "source-reference": "8c69d3a3e26885cad132a38ab0d7f287fb975296",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
@@ -51,25 +61,25 @@
         {
             "package": "symfony/finder",
             "version": "dev-master",
-            "source-reference": "6a0f850cac8cac7a0b33f48d3d3d1514d7ed56f8",
+            "source-reference": "5b8658e52eaf424fe943a5857e2404ce95c3b90e",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "68283dc1e323c7df758a0ced78df95e19eca713f",
+            "source-reference": "c42a11f51217244a1b57fa45bb2da5f1edcee010",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/http-kernel",
             "version": "dev-master",
-            "source-reference": "507c8b7eff0b871c9e41c163fe63c0d406179171",
+            "source-reference": "2a64d0557658af08d7119de07ad93318a50a4124",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/process",
             "version": "dev-master",
-            "source-reference": "9f49693318e1f7824a276da6c6556ff06cd3f25a",
+            "source-reference": "3f95a0126588f00d70e745c1ef96631fb10c3a8e",
             "alias": "2.1.9999999.9999999-dev"
         },
         {

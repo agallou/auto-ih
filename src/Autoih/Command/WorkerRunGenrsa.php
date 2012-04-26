@@ -10,13 +10,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
 
-class WorkerRun extends Command
+class WorkerRunGenrsa extends Command
 {
 
   protected function configure()
   {
     $this
-      ->setName('worker:run')
+      ->setName('worker:run-genrsa')
       ->setDescription('Execute ')
       ->setDefinition(array(
         new InputArgument('path', InputArgument::OPTIONAL, '', null),

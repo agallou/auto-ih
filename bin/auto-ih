@@ -13,6 +13,6 @@ use Autoih\Command\WorkerRun;
 
 $console = new Application('auto-ih', '0.1');
 
-$console->add(new WorkerRun());
+$console->add(new WorkerRunGenrsa());
 
 $console->run();

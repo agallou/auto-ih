@@ -9,6 +9,6 @@
     "behat/sahi-client": "*"
   },
   "autoload": {
-    "psr-0": { "AutoIh": "src/" }
+    "psr-0": { "Autoih": "src/" }
   }
 }

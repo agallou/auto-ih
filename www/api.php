@@ -2,11 +2,6 @@
 $loader = require_once '../vendor/.composer/autoload.php';
 $loader->add('Autoih', 'src');
 
-
-require_once '../src/Autoih/Provider/Controller/BaseController.php';
-require_once '../src/Autoih/Provider/Controller/GenrsaController.php';
-require_once '../src/Autoih/Provider/Controller/EpmsiController.php';
-
 $app = new Silex\Application();
 
 $config = new Pimple();

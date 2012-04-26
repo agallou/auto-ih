@@ -7,6 +7,8 @@ use Silex\ControllerCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+use Symfony\Component\Finder\Finder;
+
 class EpmsiController extends BaseController
 {
 
@@ -28,7 +30,7 @@ class EpmsiController extends BaseController
   public function getFile($okDir, $type)
   {
     $finder = new Finder();
-    $finder->files()->name('*.zip')->in($okDir);
+    $finder->files()->name('export_epmsi.zip')->in($okDir);
     if (count($finder) == 1)
     {
       $files = array_values(iterator_to_array($finder));

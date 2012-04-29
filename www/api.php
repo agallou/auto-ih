@@ -2,14 +2,9 @@
 $loader = require_once '../vendor/.composer/autoload.php';
 $loader->add('Autoih', 'src');
 
-$app = new Silex\Application();
-
-$config = new Pimple();
-$config['genrsa_working_dir'] = '/media/autoih_worker/genrsa/';
-$config['epmsi_working_dir']  = '/media/autoih_worker/epmsi/';
-
-
-$app['config'] = $config;
+$config        = new Autoih\Config\Config;
+$app           = new Silex\Application();
+$app['config'] = $config->load(__DIR__ . '/../config/configuration.yml');
 $app['debug']  = true;
 
 $app->mount('/genrsa', new Autoih\Provider\Controller\GenrsaController());

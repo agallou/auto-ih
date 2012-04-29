@@ -39,10 +39,7 @@ class WorkerRunEpmsi extends BaseWorker
    */
   protected function process(OutputInterface $output, $currentPath)
   {
-    $config['sahi_userdata']  = 'C:\Documents and Settings\Administrateur\sahi\userdata';
-    $config['sahi_host']      = '192.168.0.52';
-    $config['epmsi_user']     = 'userid';
-    $config['epmsi_password'] = 'password';
+    $config = $this->getApplication()->getConfig();
 
     $fileGenrsa = $config['sahi_userdata'] . '/export_genrsa.zip';
     $fileEpmsi  = $currentPath .'/export_epmsi.zip';

@@ -21,6 +21,8 @@ class Config extends \Pimple
       'sahi_host',
       'epmsi_user',
       'epmsi_password',
+      'worker_genrsa_dir',
+      'worker_epmsi_dir',
     );
   }
 

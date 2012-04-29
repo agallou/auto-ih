@@ -4,4 +4,6 @@ sahi_userdata: "C:\Documents and Settings\Administrateur\sahi\userdata"
 sahi_host: "localhost"
 epmsi_user: "userid"
 epmsi_password: "password"
+worker_epmsi_dir: 'X:\epmsi'
+worker_genrsa_dir: 'X:\genrsa'
 

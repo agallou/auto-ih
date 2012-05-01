@@ -145,16 +145,8 @@ WinWaitActive($newGenrsaTitle)
 ControlClick($newGenrsaTitle, "", "[NAME:btExp]")
 
 WinWaitActive("Rechercher un dossier")
-;[CLASS:SysTreeView32; INSTANCE:1]
-;ControlTreeView("Rechercher un dossier", "", "[CLASS:SysTreeView32; INSTANCE:1]", "Select", "C:")
-;ControlSend("Rechercher un dossier", "Tree1", "[CLASS:SysTreeView32; INSTANCE:1]", "C:");
-;_SelectFolder("Rechercher un dossier", "Enregistrement du fichier d'export, indiquez le dossier où sauvegarder l'archive", 'C:\Program Files')
-;Dim $ret = _BFF_SelectFolder("C:\")
-;MsgBox(48, "c", $workingDir);
 _BFF_SelectFolder($workingDir)
-;Dim $ret = _BFF_SelectFolder("X:\current")
 
-;ControlSetText("Rechercher un dossier", "", "[CLASS:SysTreeView32; INSTANCE:1]", "C:")
 ControlClick("Rechercher un dossier", "", "[CLASS:Button; INSTANCE:2]")
 
 WinWaitActive("Export")

@@ -6,4 +6,5 @@ epmsi_user: "userid"
 epmsi_password: "password"
 worker_epmsi_dir: 'X:\epmsi'
 worker_genrsa_dir: 'X:\genrsa'
-
+genrsa_2012_path: 'C:\Program Files\POP-T2A\GENRSA\WGENRSA.exe'
+finess: "000000000"

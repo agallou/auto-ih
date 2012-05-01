@@ -23,6 +23,8 @@ class Config extends \Pimple
       'epmsi_password',
       'worker_genrsa_dir',
       'worker_epmsi_dir',
+      'genrsa_2012_path',
+      'finess',
     );
   }
 

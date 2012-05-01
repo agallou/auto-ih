@@ -94,14 +94,17 @@ EndFunc   ;==>_BFF_SelectFolder
 
 
 
+Dim $workingDir = $CmdLine[1]
+Dim $genrsaPath = $CmdLine[2]
+Dim $finess     = $CmdLine[3]
+
+
 ProcessClose("WGENRSA.exe");
-Run("C:\Program Files\POP-T2A\GENRSA\WGENRSA.exe");
+Run($genrsaPath);
 
 Const $genrsaTitle = "GENRSA 11.1.0.0";
 
 WinWaitActive($genrsaTitle);
-
-Dim $workingDir = $CmdLine[1]
 
 ControlSetText($genrsaTitle, "", "[NAME:comboPeriode]", "Période de test (M0)");
 
@@ -126,7 +129,7 @@ ProcessClose("notepad.exe");
 
 ControlClick($umTitle, "", "[NAME:btValid]");
 
-$newGenrsaTitle = "GENRSA 11.1.0.0  [991394297]  [Période de test (M0)]  [2012]";
+$newGenrsaTitle = "GENRSA 11.1.0.0  [" & $finess & "]  [Période de test (M0)]  [2012]";
 
 WinWaitActive($newGenrsaTitle);
 ControlClick($newGenrsaTitle, "", "[NAME:btLant]")
@@ -134,8 +137,8 @@ ControlClick($newGenrsaTitle, "", "[NAME:btLant]")
 WinWaitActive("Fin de traitement")
 ControlClick("Fin de traitement", "", "[CLASS:Button; INSTANCE:1]")
 
-WinWaitActive("991394297.2012.0.chainage.log.txt - Bloc-notes")
-WinKill("991394297.2012.0.chainage.log.txt - Bloc-notes")
+WinWaitActive($finess & ".2012.0.chainage.log.txt - Bloc-notes")
+WinKill($finess & ".2012.0.chainage.log.txt - Bloc-notes")
 ProcessClose("notepad.exe");
 
 WinWaitActive($newGenrsaTitle)

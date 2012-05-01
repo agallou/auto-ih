@@ -10,8 +10,54 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 abstract class BaseController implements ControllerProviderInterface
 {
 
-  abstract public function getWorkingDir($app);
-  abstract public function manageUpdatedFiles($app, $dir);
+  /**
+   * year
+   *
+   * @var int
+   */
+  protected $year;
+
+  /**
+   * __construct
+   *
+   * @param int $year
+   *
+   * @return void
+   */
+  public function __construct($year)
+  {
+    $this->year = $year;
+  }
+
+  /**
+   * getWorkingDir
+   *
+   * @param Application $app
+
+   * @return string
+   */
+  abstract public function getWorkingDir(Application $app);
+
+
+  /**
+   * manageUpdatedFiles
+   *
+   * @param Application $app
+   * @param string      $dir
+   *
+   * @return void
+   */
+  abstract public function manageUpdatedFiles(Application $app, $dir);
+
+
+  /**
+   * getFile
+   *
+   * @param string $okDir
+   * @param string $type
+
+   * @return string
+   */
   abstract public function getFile($okDir, $type);
 
   /**
@@ -26,7 +72,7 @@ abstract class BaseController implements ControllerProviderInterface
     $controllers = new ControllerCollection();
     $controller  = $this;
 
-    $controllers->post('/2012/send', function () use ($controller, $app) {
+    $controllers->post(sprintf('/%s/send', $this->getYear()), function () use ($controller, $app) {
 
       $incoming = $controller->getWorkingDir($app) . '/incoming';
       if (!is_readable($incoming))
@@ -60,7 +106,7 @@ abstract class BaseController implements ControllerProviderInterface
       return json_encode($infos);
     });
 
-    $controllers->get('/2012/{id}/status', function ($id) use ($controller, $app) {
+    $controllers->get(sprintf('/%s/{id}/status', $this->getYear()), function ($id) use ($controller, $app) {
       $status  = 0;
       $message = 'OK';
       $content = array();
@@ -86,7 +132,7 @@ abstract class BaseController implements ControllerProviderInterface
       return json_encode($infos);
     });
 
-    $controllers->get('/2012/{id}/file/{type}', function ($id) use ($controller, $app) {
+    $controllers->get(sprintf('/%s/{id}/file/{type}', $this->getYear()), function ($id) use ($controller, $app) {
 
       $okDir = $controller->getWorkingDir($app) . '/ok/' . $id;
       $file  = $controller->getFile($okDir, null);
@@ -101,6 +147,16 @@ abstract class BaseController implements ControllerProviderInterface
 
 
     return $controllers;
+  }
+
+  /**
+   * getYear
+   *
+   * @return int
+   */
+  protected function getYear()
+  {
+    return $this->year;
   }
 
 }

@@ -20,12 +20,10 @@ class WorkerRunEpmsi extends BaseWorker
    */
   protected function configure()
   {
+    parent::configure();
     $this
       ->setName('worker:run-epmsi')
       ->setDescription('Execute ')
-      ->setDefinition(array(
-        new InputArgument('path', InputArgument::OPTIONAL, '', null),
-       ))
     ;
   }
 

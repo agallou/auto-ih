@@ -13,12 +13,27 @@ use Symfony\Component\Finder\Finder;
 class GenrsaController extends BaseController
 {
 
-  public function getWorkingDir($app)
+  /**
+   * getWorkingDir
+   *
+   * @param Application $app
+
+   * @return string
+   */
+  public function getWorkingDir(Application $app)
   {
-    return $app['config']['genrsa_working_dir'];
+    return $app['config']['genrsa_working_dir'] . DIRECTORY_SEPARATOR . $this->getYear();
   }
 
-  public function manageUpdatedFiles($app, $dir)
+  /**
+   * manageUpdatedFiles
+   *
+   * @param Application $app
+   * @param string      $dir
+   *
+   * @return void
+   */
+  public function manageUpdatedFiles(Application $app, $dir)
   {
     $file = $app['request']->files->get('rss');
     if (null === $file)
@@ -42,6 +57,14 @@ class GenrsaController extends BaseController
     move_uploaded_file($file->getRealPath(), $dir . DIRECTORY_SEPARATOR .  'anohosp');
   }
 
+  /**
+   * getFile
+   *
+   * @param string $okDir
+   * @param string $type
+   *
+   * @return string|null
+   */
   public function getFile($okDir, $type)
   {
     $finder = new Finder();

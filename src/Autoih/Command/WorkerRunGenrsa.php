@@ -20,12 +20,10 @@ class WorkerRunGenrsa extends BaseWorker
    */
   protected function configure()
   {
+    parent::configure();
     $this
       ->setName('worker:run-genrsa')
       ->setDescription('Execute ')
-      ->setDefinition(array(
-        new InputArgument('path', InputArgument::OPTIONAL, '', null),
-       ))
     ;
   }
 

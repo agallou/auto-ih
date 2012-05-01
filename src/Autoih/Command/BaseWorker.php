@@ -14,6 +14,21 @@ abstract class BaseWorker extends Command
 {
 
   /**
+   * configure
+   *
+   * @return void
+   */
+  protected function configure()
+  {
+    $this
+      ->setDefinition(array(
+        new InputArgument('year', InputArgument::OPTIONAL, '', null),
+        new InputArgument('path', InputArgument::OPTIONAL, '', null),
+       ))
+    ;
+  }
+
+  /**
    * execute
    *
    * @param InputInterface  $input
@@ -27,7 +42,7 @@ abstract class BaseWorker extends Command
     $incoming = $path . '/incoming';
     if (!is_readable($incoming))
     {
-      mkdir($incoming);
+      mkdir($incoming, 0777, true);
     }
     $finder = new Finder();
     $finder->directories()->in($incoming);

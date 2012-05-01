@@ -12,12 +12,27 @@ use Symfony\Component\Finder\Finder;
 class EpmsiController extends BaseController
 {
 
-  public function getWorkingDir($app)
+  /**
+   * getWorkingDir
+   *
+   * @param Application $app
+   *
+   * @return string
+   */
+  public function getWorkingDir(Application $app)
   {
-    return $app['config']['epmsi_working_dir'];
+    return $app['config']['epmsi_working_dir'] . DIRECTORY_SEPARATOR . $this->getYear();
   }
 
-  public function manageUpdatedFiles($app, $dir)
+  /**
+   * manageUpdatedFiles
+   *
+   * @param Application $app
+   * @param string      $dir
+   *
+   * @return void
+   */
+  public function manageUpdatedFiles(Application $app, $dir)
   {
     $file = $app['request']->files->get('export_genrsa');
     if (null === $file)
@@ -27,6 +42,14 @@ class EpmsiController extends BaseController
     move_uploaded_file($file->getRealPath(), $dir . DIRECTORY_SEPARATOR .  'export_genrsa.zip');
   }
 
+  /**
+   * getFile
+   *
+   * @param string $okDir
+   * @param string $type
+   *
+   * @return string|null
+   */
   public function getFile($okDir, $type)
   {
     $finder = new Finder();

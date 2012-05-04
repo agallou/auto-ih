@@ -24,6 +24,7 @@ class Config extends \Pimple
       'worker_genrsa_dir',
       'worker_epmsi_dir',
       'genrsa_2012_path',
+      'genrsa_2011_path',
       'finess',
     );
   }

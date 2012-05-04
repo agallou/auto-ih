@@ -39,6 +39,7 @@ abstract class BaseWorker extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $path     = $input->getArgument('path');
+    $year     = $input->getArgument('year');
     $incoming = $path . '/incoming';
     if (!is_readable($incoming))
     {
@@ -73,7 +74,7 @@ abstract class BaseWorker extends Command
 
     $currentPathId = $current . DIRECTORY_SEPARATOR . $id;
     rename($currentPath, $currentPathId);
-    $this->process($output, $currentPathId);
+    $this->process($output, $year, $currentPathId);
     $ok = $path . '/ok';
     if (!is_readable($ok))
     {
@@ -86,11 +87,12 @@ abstract class BaseWorker extends Command
    * process
    *
    * @param OutputInterface $output
+   * @param int             $year
    * @param string          $currentPath
    *
    * @return void
    */
-  abstract protected function process(OutputInterface $output, $currentPath);
+  abstract protected function process(OutputInterface $output, $year, $currentPath);
 
 
 }

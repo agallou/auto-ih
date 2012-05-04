@@ -31,11 +31,12 @@ class WorkerRunEpmsi extends BaseWorker
    * process
    *
    * @param OutputInterface $output
+   * @param int             $year
    * @param string          $currentPath
    *
    * @return void
    */
-  protected function process(OutputInterface $output, $currentPath)
+  protected function process(OutputInterface $output, $year, $currentPath)
   {
     $config = $this->getApplication()->getConfig();
 

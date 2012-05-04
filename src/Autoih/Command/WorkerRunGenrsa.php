@@ -35,13 +35,14 @@ class WorkerRunGenrsa extends BaseWorker
    *
    * @return void
    */
-  protected function process(OutputInterface $output, $currentPath)
+  protected function process(OutputInterface $output, $year, $currentPath)
   {
     $config = $this->getApplication()->getConfig();
     $cmd = sprintf(
-      '.\bin\genrsa\2012.exe %s %s %s',
+      '.\bin\genrsa\%s.exe %s %s %s',
+      $year,
       escapeshellarg(str_replace('/', '\\', $currentPath)),
-      escapeshellarg($config['genrsa_2012_path']),
+      escapeshellarg($config[sprintf('genrsa_%s_path', $year)]),
       escapeshellarg($config['finess'])
     );
     exec($cmd);

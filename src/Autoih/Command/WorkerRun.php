@@ -35,11 +35,13 @@ class WorkerRun extends Command
   {
     $config = $this->getApplication()->getConfig();
     $commands = array(
-      'worker:run-genrsa' => array('year' => '2012', 'path' => $config['worker_genrsa_dir']),
-      'worker:run-epmsi'  => array('year' => '2012', 'path' => $config['worker_epmsi_dir']),
+      array('name' => 'worker:run-genrsa', 'year' => '2011', 'path' => $config['worker_genrsa_dir']),
+      array('name' => 'worker:run-genrsa', 'year' => '2012', 'path' => $config['worker_genrsa_dir']),
+      array('name' => 'worker:run-epmsi',  'year' => '2012', 'path' => $config['worker_epmsi_dir']),
     );
-    foreach ($commands as $name => $infos)
+    foreach ($commands as $infos)
     {
+      $name = $infos['name'];
       $output->writeln(sprintf('<comment>%s</comment> (%s)', $name, $infos['year']));
 
       $command = $this->getApplication()->find($name);

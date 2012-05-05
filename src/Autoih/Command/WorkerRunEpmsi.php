@@ -65,7 +65,15 @@ class WorkerRunEpmsi extends BaseWorker
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/ul[1]/li[2]/a")->click();
 
     //année 2012, période de test (M0), Fichiers
-    $client->findByXPath("//li[@id='li97']/ul/li[1]/a")->click();
+    $lis = array(
+      '2012' => 'li97',
+      '2011' => 'li202',
+    );
+    if (!isset($lis[$year]))
+    {
+      throw new RuntimeException(sprintf('Year %s not supported', $year));
+    }
+    $client->findByXPath(sprintf("//li[@id='%s']/ul/li[1]/a", $lis[$year]))->click();
 
     //Transmettre ANO, RSA...
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/table[1][@class='tabcolor']/tbody/tr[2]/td[5][@class='tabbodycnt']/a/b")->click();

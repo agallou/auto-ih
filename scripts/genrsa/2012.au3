@@ -46,8 +46,10 @@ ControlClick($newGenrsaTitle, "", "[NAME:btLant]")
 WinWaitActive("Fin de traitement")
 ControlClick("Fin de traitement", "", "[CLASS:Button; INSTANCE:1]")
 
-WinWaitActive($finess & ".2012.0.chainage.log.txt - Bloc-notes")
-WinKill($finess & ".2012.0.chainage.log.txt - Bloc-notes")
+WinWaitActive("[CLASS:Notepad]")
+WinClose("[CLASS:Notepad]")
+WinWaitActive("[CLASS:Notepad]")
+WinClose("[CLASS:Notepad]")
 ProcessClose("notepad.exe");
 
 WinWaitActive($newGenrsaTitle)

@@ -37,6 +37,7 @@ class WorkerRun extends Command
     $commands = array(
       array('name' => 'worker:run-genrsa', 'year' => '2011', 'path' => $config['worker_genrsa_dir']),
       array('name' => 'worker:run-genrsa', 'year' => '2012', 'path' => $config['worker_genrsa_dir']),
+      array('name' => 'worker:run-paprica', 'year' => '2012', 'path' => $config['worker_paprica_dir']),
       array('name' => 'worker:run-epmsi',  'year' => '2012', 'path' => $config['worker_epmsi_dir']),
       array('name' => 'worker:run-epmsi',  'year' => '2011', 'path' => $config['worker_epmsi_dir']),
     );

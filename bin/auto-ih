@@ -6,6 +6,7 @@ $loader->add('Autoih', 'src');
 use Autoih\Application;
 use Autoih\Command\WorkerRunGenrsa;
 use Autoih\Command\WorkerRunEpmsi;
+use Autoih\Command\WorkerRunPaprica;
 use Autoih\Command\WorkerRun;
 
 $config  = new Autoih\Config\Config;
@@ -15,6 +16,7 @@ $console = new Application('auto-ih', '0.1');
 $console->setConfig($config);
 $console->add(new WorkerRunGenrsa());
 $console->add(new WorkerRunEpmsi());
+$console->add(new WorkerRunPaprica());
 $console->add(new WorkerRun());
 
 $console->run();

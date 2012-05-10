@@ -1,11 +1,14 @@
 genrsa_working_dir: "/media/autoih_worker/genrsa/"
 epmsi_working_dir: "/media/autoih_worker/epmsi/"
+paprica_working_dir: "/media/autoih_worker/paprica/"
 sahi_userdata: "C:\Documents and Settings\Administrateur\sahi\userdata"
 sahi_host: "localhost"
 epmsi_user: "userid"
 epmsi_password: "password"
 worker_epmsi_dir: 'X:\epmsi'
 worker_genrsa_dir: 'X:\genrsa'
+worker_paprica_dir: 'X:\paprica'
 genrsa_2012_path: 'C:\Program Files\POP-T2A\GENRSA\WGENRSA.exe'
 genrsa_2011_path: 'C:\Program Files\POP-T2A\GENRSA_2011\WGENRSA.exe'
+paprica_2012_path: 'C:\Program Files\ATIH\PAPRICA_2012\PAPRICA.exe'
 finess: "000000000"

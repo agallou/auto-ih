@@ -72,7 +72,7 @@ abstract class BaseController implements ControllerProviderInterface
     $controllers = new ControllerCollection();
     $controller  = $this;
 
-    $controllers->post(sprintf('/%s/send', $this->getYear()), function () use ($controller, $app) {
+    $controllers->post(sprintf('/%s/M0/send', $this->getYear()), function () use ($controller, $app) {
 
       $incoming = $controller->getWorkingDir($app) . '/incoming';
       if (!is_readable($incoming))
@@ -106,7 +106,7 @@ abstract class BaseController implements ControllerProviderInterface
       return json_encode($infos);
     });
 
-    $controllers->get(sprintf('/%s/{id}/status', $this->getYear()), function ($id) use ($controller, $app) {
+    $controllers->get(sprintf('/%s/M0/{id}/status', $this->getYear()), function ($id) use ($controller, $app) {
       $status  = 0;
       $message = 'OK';
       $content = array();
@@ -132,7 +132,7 @@ abstract class BaseController implements ControllerProviderInterface
       return json_encode($infos);
     });
 
-    $controllers->get(sprintf('/%s/{id}/file/{type}', $this->getYear()), function ($id) use ($controller, $app) {
+    $controllers->get(sprintf('/%s/M0/{id}/file/{type}', $this->getYear()), function ($id) use ($controller, $app) {
 
       $okDir = $controller->getWorkingDir($app) . '/ok/' . $id;
       $file  = $controller->getFile($okDir, null);

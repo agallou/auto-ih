@@ -13,27 +13,27 @@ Const $genrsaTitle = "GENRSA 10.9.9.9";
 WinWaitActive($genrsaTitle);
 
 
-;TODO ne pas d�finir la p�riode comme cela, (la comno n'est pas pr�sente en 2011).
-ControlSetText($genrsaTitle, "", "[NAME:comboPeriode]", "P�riode de test (M0)");
+;TODO ne pas définir la période comme cela, (la comno n'est pas présente en 2011).
+ControlSetText($genrsaTitle, "", "[NAME:comboPeriode]", "Période de test (M0)");
 
 ControlSetText($genrsaTitle, "", "[NAME:ztPathRss]", $workingDir  & "/rss");
 ControlSetText($genrsaTitle, "", "[NAME:tbFicUMImport]", $workingDir  & "/autorisations");
 ControlSetText($genrsaTitle, "", "[NAME:ztPathAno]", $workingDir  & "/anohosp");
 
-;on d�coche la case utilisation du  fichier hosp-pmsi
+;on décoche la case utilisation du  fichier hosp-pmsi
 ControlClick($genrsaTitle, "", "[NAME:chbHospPmsi]") 
 
 
 ControlClick($genrsaTitle, "", "[NAME:btTraitChoixUm]")
 
 
-$umTitle = "Renseignements des donn�es sur les unit�s m�dicales";
+$umTitle = "Renseignements des données sur les unités médicales";
 WinWait($umTitle);
 ProcessClose("notepad.exe");
 
 ControlClick($umTitle, "", "[NAME:btValid]");
 
-$newGenrsaTitle = "GENRSA 10.9.9.9  [" & $finess & "]  [P�riode de test (M0)]  [2011]";
+$newGenrsaTitle = "GENRSA 10.9.9.9  [" & $finess & "]  [Période de test (M0)]  [2011]";
 
 WinWaitActive($newGenrsaTitle);
 

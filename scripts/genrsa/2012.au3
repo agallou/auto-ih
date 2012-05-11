@@ -5,7 +5,6 @@ Dim $workingDir = $CmdLine[1]
 Dim $genrsaPath = $CmdLine[2]
 Dim $finess     = $CmdLine[3]
 
-
 ProcessClose("WGENRSA.exe");
 Run($genrsaPath);
 
@@ -13,7 +12,7 @@ Const $genrsaTitle = "GENRSA 11.1.1.0";
 
 WinWaitActive($genrsaTitle);
 
-ControlSetText($genrsaTitle, "", "[NAME:comboPeriode]", "P�riode de test (M0)");
+ControlSetText($genrsaTitle, "", "[NAME:comboPeriode]", "Période de test (M0)");
 
 ControlSetText($genrsaTitle, "", "[NAME:ztPathRss]", $workingDir  & "/rss");
 ControlSetText($genrsaTitle, "", "[NAME:tbFicUMImport]", $workingDir  & "/autorisations");
@@ -21,13 +20,13 @@ ControlSetText($genrsaTitle, "", "[NAME:ztPathAno]", $workingDir  & "/anohosp");
 
 ControlClick($genrsaTitle, "", "[NAME:btTraitChoixUm]")
 
-$umTitle = "Renseignements des donn�es sur les unit�s m�dicales";
+$umTitle = "Renseignements des données sur les unités médicales";
 WinWait($umTitle);
 ProcessClose("notepad.exe");
 
 ControlClick($umTitle, "", "[NAME:btValid]");
 
-$newGenrsaTitle = "GENRSA 11.1.0.0  [" & $finess & "]  [P�riode de test (M0)]  [2012]";
+$newGenrsaTitle = "GENRSA 11.1.0.0  [" & $finess & "]  [Période de test (M0)]  [2012]";
 
 WinWaitActive($newGenrsaTitle);
 ControlClick($newGenrsaTitle, "", "[NAME:btLant]")

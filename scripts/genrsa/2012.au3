@@ -26,7 +26,7 @@ ProcessClose("notepad.exe");
 
 ControlClick($umTitle, "", "[NAME:btValid]");
 
-$newGenrsaTitle = "GENRSA 11.1.0.0  [" & $finess & "]  [Période de test (M0)]  [2012]";
+$newGenrsaTitle = "GENRSA 11.1.1.0  [" & $finess & "]  [Période de test (M0)]  [2012]";
 
 WinWaitActive($newGenrsaTitle);
 ControlClick($newGenrsaTitle, "", "[NAME:btLant]")

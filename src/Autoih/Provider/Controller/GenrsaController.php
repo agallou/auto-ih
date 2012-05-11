@@ -38,21 +38,21 @@ class GenrsaController extends BaseController
     $file = $app['request']->files->get('rss');
     if (null === $file)
     {
-      throw new RuntimeException('Fichier RSS manquant', 1);
+      throw new \RuntimeException('Fichier RSS manquant', 1);
     }
     move_uploaded_file($file->getRealPath(), $dir . DIRECTORY_SEPARATOR .  'rss');
 
     $file = $app['request']->files->get('autorisations');
     if (null === $file)
     {
-      throw new RuntimeException('Fichier autorisations manquant', 2);
+      throw new \RuntimeException('Fichier autorisations manquant', 2);
     }
     move_uploaded_file($file->getRealPath(), $dir . DIRECTORY_SEPARATOR .  'autorisations');
 
     $file = $app['request']->files->get('anohosp');
     if (null === $file)
     {
-      throw new RuntimeException('Fichier anohosp manquant', 3);
+      throw new \RuntimeException('Fichier anohosp manquant', 3);
     }
     move_uploaded_file($file->getRealPath(), $dir . DIRECTORY_SEPARATOR .  'anohosp');
   }

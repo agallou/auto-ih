@@ -6,14 +6,14 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
 
-
+/**
+ * @method \Autoih\Application getApplication
+ */
 class WorkerRun extends Command
 {
 
   /**
-   * configure
    *
-   * @return void
    */
   protected function configure()
   {
@@ -22,14 +22,9 @@ class WorkerRun extends Command
     ;
   }
 
-
   /**
-   * execute
-   *
-   * @param InputInterface  $input
-   * @param OutputInterface $output
-   *
-   * @return void
+   * @param \Symfony\Component\Console\Input\InputInterface $input
+   * @param \Symfony\Component\Console\Output\OutputInterface $output
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
@@ -38,16 +33,27 @@ class WorkerRun extends Command
       array('name' => 'worker:run-genrsa', 'year' => '2011', 'path' => $config['worker_genrsa_dir']),
       array('name' => 'worker:run-genrsa', 'year' => '2012', 'path' => $config['worker_genrsa_dir']),
       array('name' => 'worker:run-paprica', 'year' => '2012', 'path' => $config['worker_paprica_dir']),
-      array('name' => 'worker:run-epmsi',  'year' => '2012', 'path' => $config['worker_epmsi_dir']),
-      array('name' => 'worker:run-epmsi',  'year' => '2011', 'path' => $config['worker_epmsi_dir']),
+      array('name' => 'worker:run-epmsi',  'year' => '2012', 'path' => $config['worker_epmsi_dir'], 'field' => 'mat2a_mco_stc'),
+      array('name' => 'worker:run-epmsi',  'year' => '2011', 'path' => $config['worker_epmsi_dir'], 'field' => 'mat2a_mco_stc'),
+      array('name' => 'worker:run-epmsi',  'year' => '2012', 'path' => $config['worker_epmsi_dir'], 'field' => 'mat2a_had'),
     );
     foreach ($commands as $infos)
     {
-      $name = $infos['name'];
-      $output->writeln(sprintf('<comment>%s</comment> (%s)', $name, $infos['year']));
+      $name          = $infos['name'];
+      $displayedName = $name;
+      if (isset($infos['field']))
+      {
+        $displayedName .= ' - ' . $infos['field'];
+      }
+      $output->writeln(sprintf('<comment>%s</comment> (%s)', $displayedName, $infos['year']));
 
       $command = $this->getApplication()->find($name);
       $path    = $infos['path'] . DIRECTORY_SEPARATOR . $infos['year'];
+
+      if (isset($infos['field']))
+      {
+        $path    = $infos['path'] . DIRECTORY_SEPARATOR . $infos['field'] . DIRECTORY_SEPARATOR . $infos['year'];
+      }
 
       $arguments = array(
         'command' => $name,
@@ -55,8 +61,13 @@ class WorkerRun extends Command
         'year'    => $infos['year'],
       );
 
+      if (isset($infos['field']))
+      {
+        $arguments['field'] = $infos['field'];
+      }
+
       $input = new ArrayInput($arguments);
-      $returnCode = $command->run($input, $output);
+      $command->run($input, $output);
     }
   }
 

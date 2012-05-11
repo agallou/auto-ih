@@ -25,6 +25,7 @@ class WorkerRunEpmsi extends BaseWorker
       ->setName('worker:run-epmsi')
       ->setDescription('Execute ')
     ;
+    $this->getDefinition()->addArgument(new InputArgument('field', InputArgument::REQUIRED));
   }
 
   /**
@@ -34,9 +35,10 @@ class WorkerRunEpmsi extends BaseWorker
    *
    * @throws \RuntimeException
    */
-  protected function process(OutputInterface $output, $year, $currentPath)
+  protected function process(OutputInterface $output, $year, $currentPath, InputInterface $input)
   {
     $config = $this->getApplication()->getConfig();
+    $field = $input->getArgument('field');
 
     $fileGenrsa = $config['sahi_userdata'] . '/export_genrsa.zip';
     $fileEpmsi  = $currentPath .'/export_epmsi.zip';
@@ -60,18 +62,10 @@ class WorkerRunEpmsi extends BaseWorker
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[1]/table/tbody/tr[4]/td[@class='epmsimenu1']/a")->click();
 
     //clic sur MaT2a MCO DGF sans taux de conversion
-    $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/ul[1]/li[2]/a")->click();
+    $client->findByXPath($this->getXpath($field, $year, 'field'))->click();
 
     //année 2012, période de test (M0), Fichiers
-    $lis = array(
-      '2012' => 'li97',
-      '2011' => 'li202',
-    );
-    if (!isset($lis[$year]))
-    {
-      throw new RuntimeException(sprintf('Year %s not supported', $year));
-    }
-    $client->findByXPath(sprintf("//li[@id='%s']/ul/li[1]/a", $lis[$year]))->click();
+    $client->findByXPath($this->getXpath($field, $year, 'periode_fichiers'))->click();
 
     //Transmettre ANO, RSA...
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/table[1][@class='tabcolor']/tbody/tr[2]/td[5][@class='tabbodycnt']/a/b")->click();
@@ -124,6 +118,39 @@ class WorkerRunEpmsi extends BaseWorker
 
     $client->stop();
     copy($config['sahi_userdata'] . '/export_epmsi.zip', $fileEpmsi);
+  }
+
+  /**
+   * @param string $field
+   * @param string $year
+   * @param string $type
+   *
+   * @return string
+   */
+  protected function getXpath($field, $year, $type)
+  {
+    $xpaths = array(
+      'mat2a_mco_stc' => array(
+        'field'            => "/html/body/table[2]/tbody/tr/td[3]/font/ul[1]/li[2]/a",
+        'periode_fichiers' => array(
+          '2012' => "//li[@id='li97']/ul/li[1]/a",
+          '2011' => "//li[@id='li202']/ul/li[1]/a",
+        ),
+      ),
+      'mat2a_had' => array(
+        'field'            => "/html/body/table[2]/tbody/tr/td[3]/font/ul[2]/li/a",
+        'periode_fichiers' => array(
+          '2012' => "//li[@id='li97']/ul/li[1]/a",
+          '2011' => "//li[@id='li202']/ul/li[1]/a",
+        ),
+      )
+    );
+    $info =  $xpaths[$field][$type];
+    if (is_array($info))
+    {
+      $info = $info[$year];
+    }
+    return $info;
   }
 
 }

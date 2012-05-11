@@ -24,8 +24,8 @@ abstract class BaseWorker extends Command
   {
     $this
       ->setDefinition(array(
-        new InputArgument('year', InputArgument::OPTIONAL, '', null),
-        new InputArgument('path', InputArgument::OPTIONAL, '', null),
+        new InputArgument('year', InputArgument::REQUIRED),
+        new InputArgument('path', InputArgument::REQUIRED),
        ))
     ;
   }
@@ -76,7 +76,7 @@ abstract class BaseWorker extends Command
 
     $currentPathId = $current . DIRECTORY_SEPARATOR . $id;
     rename($currentPath, $currentPathId);
-    $this->process($output, $year, $currentPathId);
+    $this->process($output, $year, $currentPathId, $input);
     $ok = $path . '/ok';
     if (!is_readable($ok))
     {
@@ -91,10 +91,11 @@ abstract class BaseWorker extends Command
    * @param OutputInterface $output
    * @param int             $year
    * @param string          $currentPath
+   * @param InputInterface  $input
    *
    * @return void
    */
-  abstract protected function process(OutputInterface $output, $year, $currentPath);
+  abstract protected function process(OutputInterface $output, $year, $currentPath, InputInterface $input);
 
 
 }

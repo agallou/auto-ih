@@ -31,8 +31,9 @@ class WorkerRunGenrsa extends BaseWorker
    * @param \Symfony\Component\Console\Output\OutputInterface $output
    * @param string                                            $year
    * @param string                                            $currentPath
+   * @param \Symfony\Component\Console\Input\InputInterface   $input
    */
-  protected function process(OutputInterface $output, $year, $currentPath)
+  protected function process(OutputInterface $output, $year, $currentPath, InputInterface $input)
   {
     $config = $this->getApplication()->getConfig();
     $cmd = sprintf(

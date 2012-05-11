@@ -9,7 +9,7 @@ Dim $finess     = $CmdLine[3]
 ProcessClose("WGENRSA.exe");
 Run($genrsaPath);
 
-Const $genrsaTitle = "GENRSA 11.1.0.0";
+Const $genrsaTitle = "GENRSA 11.1.1.0";
 
 WinWaitActive($genrsaTitle);
 

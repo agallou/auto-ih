@@ -32,6 +32,7 @@ class WorkerRunEpmsi extends BaseWorker
    * @param \Symfony\Component\Console\Output\OutputInterface $output
    * @param string                                            $year
    * @param string                                            $currentPath
+   * @param \Symfony\Component\Console\Input\InputInterface   $input
    *
    * @throws \RuntimeException
    */
@@ -40,9 +41,9 @@ class WorkerRunEpmsi extends BaseWorker
     $config = $this->getApplication()->getConfig();
     $field = $input->getArgument('field');
 
-    $fileGenrsa = $config['sahi_userdata'] . '/export_genrsa.zip';
+    $fileGenrsa = $config['sahi_userdata'] . '/' . $this->getInfo($field, $year, 'import_file');
     $fileEpmsi  = $currentPath .'/export_epmsi.zip';
-    copy($currentPath .'/export_genrsa.zip', $fileGenrsa);
+    copy($currentPath .'/' . $this->getInfo($field, $year, 'import_file'), $fileGenrsa);
 
     $connection = new \Behat\SahiClient\Connection(null, $config['sahi_host']);
     $client     = new \Behat\SahiClient\Client($connection);
@@ -62,10 +63,10 @@ class WorkerRunEpmsi extends BaseWorker
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[1]/table/tbody/tr[4]/td[@class='epmsimenu1']/a")->click();
 
     //clic sur MaT2a MCO DGF sans taux de conversion
-    $client->findByXPath($this->getXpath($field, $year, 'field'))->click();
+    $client->findByXPath($this->getInfo($field, $year, 'field'))->click();
 
     //année 2012, période de test (M0), Fichiers
-    $client->findByXPath($this->getXpath($field, $year, 'periode_fichiers'))->click();
+    $client->findByXPath($this->getInfo($field, $year, 'periode_fichiers'))->click();
 
     //Transmettre ANO, RSA...
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/table[1][@class='tabcolor']/tbody/tr[2]/td[5][@class='tabbodycnt']/a/b")->click();
@@ -127,11 +128,12 @@ class WorkerRunEpmsi extends BaseWorker
    *
    * @return string
    */
-  protected function getXpath($field, $year, $type)
+  protected function getInfo($field, $year, $type)
   {
     $xpaths = array(
       'mat2a_mco_stc' => array(
         'field'            => "/html/body/table[2]/tbody/tr/td[3]/font/ul[1]/li[2]/a",
+        'import_file'      => 'export_genrsa.zip',
         'periode_fichiers' => array(
           '2012' => "//li[@id='li97']/ul/li[1]/a",
           '2011' => "//li[@id='li202']/ul/li[1]/a",
@@ -139,6 +141,7 @@ class WorkerRunEpmsi extends BaseWorker
       ),
       'mat2a_had' => array(
         'field'            => "/html/body/table[2]/tbody/tr/td[3]/font/ul[2]/li/a",
+        'import_file'      => 'export_paprica.zip',
         'periode_fichiers' => array(
           '2012' => "//li[@id='li97']/ul/li[1]/a",
           '2011' => "//li[@id='li202']/ul/li[1]/a",

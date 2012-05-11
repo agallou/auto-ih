@@ -14,10 +14,8 @@ class GenrsaController extends BaseController
 {
 
   /**
-   * getWorkingDir
+   * @param \Silex\Application $app
    *
-   * @param Application $app
-
    * @return string
    */
   public function getWorkingDir(Application $app)
@@ -26,12 +24,10 @@ class GenrsaController extends BaseController
   }
 
   /**
-   * manageUpdatedFiles
+   * @param \Silex\Application $app
+   * @param string             $dir
    *
-   * @param Application $app
-   * @param string      $dir
-   *
-   * @return void
+   * @throws \RuntimeException
    */
   public function manageUpdatedFiles(Application $app, $dir)
   {

@@ -56,7 +56,7 @@ ProcessClose("notepad.exe");
 WinWaitActive($newGenrsaTitle)
 ControlClick($newGenrsaTitle, "", "[NAME:btExp]")
 
-if @OSLang == '040c' Then
+if @OSLang == '040C' Then
   Dim $browseFolderTitle = 'Rechercher un dossier'
   Else
   Dim $browseFolderTitle = 'Browse For Folder'

@@ -16,11 +16,9 @@ class Application extends BaseApplication
   protected $config;
 
   /**
-   * setConfig
+   * @param Config\Config $config
    *
-   * @param Config $config
-   *
-   * @return $this
+   * @return Application
    */
   public function setConfig(Config $config)
   {
@@ -32,7 +30,7 @@ class Application extends BaseApplication
   /**
    * getConfig
    *
-   * @return Pimple
+   * @return \Pimple
    */
   public function getConfig()
   {

@@ -29,6 +29,7 @@ class Config extends \Pimple
       'genrsa_2012_path',
       'genrsa_2011_path',
       'finess',
+      'desktop_path',
     );
   }
 

@@ -28,12 +28,9 @@ class WorkerRunGenrsa extends BaseWorker
   }
 
   /**
-   * process
-   *
-   * @param OutputInterface $output
-   * @param string          $currentPath
-   *
-   * @return void
+   * @param \Symfony\Component\Console\Output\OutputInterface $output
+   * @param string                                            $year
+   * @param string                                            $currentPath
    */
   protected function process(OutputInterface $output, $year, $currentPath)
   {
@@ -46,6 +43,13 @@ class WorkerRunGenrsa extends BaseWorker
       escapeshellarg($config['finess'])
     );
     exec($cmd);
+    $finder = new Finder();
+    $finder->files()->in($config['desktop_path']);
+    foreach ($finder as $file)
+    {
+      rename($file->getRealPath(), $currentPath . DIRECTORY_SEPARATOR . $file->getFilename());
+      break;
+    }
   }
 
 }

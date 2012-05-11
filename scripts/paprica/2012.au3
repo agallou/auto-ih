@@ -1,7 +1,5 @@
 #include <Array.au3>
 #include <GuiTreeView.au3>
-#include "..\selectFolder.au3"
-
 
 Dim $workingDir = $CmdLine[1]
 Dim $genrsaPath = $CmdLine[2]
@@ -14,7 +12,7 @@ Const $genrsaTitle = "PAPRICA 1.9.5.2";
 
 WinWaitActive($genrsaTitle);
 
-ControlSetText($genrsaTitle, "", "[NAME:cbPeriode]", "Période de Test (M0)");
+ControlSetText($genrsaTitle, "", "[NAME:cbPeriode]", "Pï¿½riode de Test (M0)");
 
 ControlSetText($genrsaTitle, "", "[NAME:ztPathRpss]", $workingDir  & "/rpss");
 ControlSetText($genrsaTitle, "", "[NAME:ztPathEHPA]", $workingDir  & "/ehpa");
@@ -26,7 +24,7 @@ ControlClick($genrsaTitle, "", "[NAME:btImportConvEHPA]")
 WinWaitActive("[CLASS:Notepad]")
 WinClose("[CLASS:Notepad]")
 
-ControlClick("PAPRICA - Contrôle du fichier RPSS", "", "[CLASS:Button; INSTANCE:1]")
+ControlClick("PAPRICA - ContrÃ´le du fichier RPSS", "", "[CLASS:Button; INSTANCE:1]")
 
 WinWaitActive("PAPRICA - Saisie des conventions HAD-EHPA");
 
@@ -45,8 +43,8 @@ ControlClick($newGenrsaTitle, "", "[NAME:btLant]")
 WinWaitActive("[CLASS:Notepad]")
 WinClose("[CLASS:Notepad]")
 
-;todo timeout là dessus
-ControlClick("PAPRICA - Contrôle du fichier RPSS", "", "[CLASS:Button; INSTANCE:1]")
+;todo timeout lï¿½ dessus
+ControlClick("PAPRICA - ContrÃ´le du fichier RPSS", "", "[CLASS:Button; INSTANCE:1]")
 
 WinWaitActive("[CLASS:Notepad]")
 WinClose("[CLASS:Notepad]")
@@ -60,10 +58,16 @@ ControlClick("PAPRICA - Information", "", "[CLASS:Button; INSTANCE:1]")
 WinWaitActive($newGenrsaTitle)
 ControlClick($newGenrsaTitle, "", "[NAME:btExp]")
 
-WinWaitActive("Rechercher un dossier")
-_BFF_SelectFolder($workingDir)
+if @OSLang == '040c' Then
+  Dim $browseFolderTitle = 'Rechercher un dossier'
+  Else
+  Dim $browseFolderTitle = 'Browse For Folder'
+EndIf
 
-ControlClick("Rechercher un dossier", "", "[CLASS:Button; INSTANCE:2]")
+
+; le fichier exportÃ© sera placÃ© sur le bureau
+WinWaitActive($browseFolderTitle)
+ControlClick($browseFolderTitle, "", "[CLASS:Button; INSTANCE:2]")
 
 WinWaitActive("Export")
 ControlClick("Export", "", "[CLASS:Button; INSTANCE:1]")

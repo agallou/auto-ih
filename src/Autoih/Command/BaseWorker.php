@@ -9,7 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use Symfony\Component\Finder\Finder;
 
-
+/**
+ * @method \Autoih\Application getApplication
+ */
 abstract class BaseWorker extends Command
 {
 

@@ -1,7 +1,5 @@
 #include <Array.au3>
 #include <GuiTreeView.au3>
-#include "..\selectFolder.au3"
-
 
 Dim $workingDir = $CmdLine[1]
 Dim $genrsaPath = $CmdLine[2]
@@ -15,33 +13,27 @@ Const $genrsaTitle = "GENRSA 10.9.9.9";
 WinWaitActive($genrsaTitle);
 
 
-;TODO ne pas définir la période comme cela, (la comno n'est pas présente en 2011).
-ControlSetText($genrsaTitle, "", "[NAME:comboPeriode]", "Période de test (M0)");
+;TODO ne pas dï¿½finir la pï¿½riode comme cela, (la comno n'est pas prï¿½sente en 2011).
+ControlSetText($genrsaTitle, "", "[NAME:comboPeriode]", "Pï¿½riode de test (M0)");
 
 ControlSetText($genrsaTitle, "", "[NAME:ztPathRss]", $workingDir  & "/rss");
 ControlSetText($genrsaTitle, "", "[NAME:tbFicUMImport]", $workingDir  & "/autorisations");
 ControlSetText($genrsaTitle, "", "[NAME:ztPathAno]", $workingDir  & "/anohosp");
 
-;on décoche la case utilisation du  fichier hosp-pmsi
+;on dï¿½coche la case utilisation du  fichier hosp-pmsi
 ControlClick($genrsaTitle, "", "[NAME:chbHospPmsi]") 
 
 
 ControlClick($genrsaTitle, "", "[NAME:btTraitChoixUm]")
 
-If WinExists("[CLASS:Static; INSTANCE:1]") Then
- ;  ProcessClose("WGENRSA.exe");
-  ; Exit(124) ;code 124 : erreur à la saisie des autorisations
-EndIf
 
-
-
-$umTitle = "Renseignements des données sur les unités médicales";
+$umTitle = "Renseignements des donnï¿½es sur les unitï¿½s mï¿½dicales";
 WinWait($umTitle);
 ProcessClose("notepad.exe");
 
 ControlClick($umTitle, "", "[NAME:btValid]");
 
-$newGenrsaTitle = "GENRSA 10.9.9.9  [" & $finess & "]  [Période de test (M0)]  [2011]";
+$newGenrsaTitle = "GENRSA 10.9.9.9  [" & $finess & "]  [Pï¿½riode de test (M0)]  [2011]";
 
 WinWaitActive($newGenrsaTitle);
 
@@ -64,10 +56,14 @@ ProcessClose("notepad.exe");
 WinWaitActive($newGenrsaTitle)
 ControlClick($newGenrsaTitle, "", "[NAME:btExp]")
 
-WinWaitActive("Rechercher un dossier")
-_BFF_SelectFolder($workingDir)
+if @OSLang == '040c' Then
+  Dim $browseFolderTitle = 'Rechercher un dossier'
+  Else
+  Dim $browseFolderTitle = 'Browse For Folder'
+EndIf
 
-ControlClick("Rechercher un dossier", "", "[CLASS:Button; INSTANCE:2]")
+WinWaitActive($browseFolderTitle)
+ControlClick($browseFolderTitle, "", "[CLASS:Button; INSTANCE:2]")
 
 WinWaitActive("Export")
 ControlClick("Export", "", "[CLASS:Button; INSTANCE:1]")

@@ -28,13 +28,11 @@ class WorkerRunEpmsi extends BaseWorker
   }
 
   /**
-   * process
+   * @param \Symfony\Component\Console\Output\OutputInterface $output
+   * @param string                                            $year
+   * @param string                                            $currentPath
    *
-   * @param OutputInterface $output
-   * @param int             $year
-   * @param string          $currentPath
-   *
-   * @return void
+   * @throws \RuntimeException
    */
   protected function process(OutputInterface $output, $year, $currentPath)
   {

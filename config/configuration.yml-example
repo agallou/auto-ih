@@ -12,3 +12,4 @@ genrsa_2012_path: 'C:\Program Files\POP-T2A\GENRSA\WGENRSA.exe'
 genrsa_2011_path: 'C:\Program Files\POP-T2A\GENRSA_2011\WGENRSA.exe'
 paprica_2012_path: 'C:\Program Files\ATIH\PAPRICA_2012\PAPRICA.exe'
 finess: "000000000"
+desktop_path: "C:\Documents and Settings\Administrateur\Bureau"

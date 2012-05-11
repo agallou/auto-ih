@@ -77,7 +77,7 @@ abstract class BaseController implements ControllerProviderInterface
       $incoming = $controller->getWorkingDir($app) . '/incoming';
       if (!is_readable($incoming))
       {
-        mkdir($incoming);
+        mkdir($incoming, 0777, true);
       }
 
       $id  = md5(microtime());

@@ -15,5 +15,7 @@ $app->mount('/epmsi/mat2a/had', new Autoih\Provider\Controller\Mat2aHadControlle
 
 $app->mount('/paprica', new Autoih\Provider\Controller\PapricaController('2012'));
 
+$app->mount('/epmsi/parser/had/2012/M0', new Autoih\Provider\Controller\ParserController(new Autoih\Mat2a\ParserDefinition\Mat2aHad(array(2012))));
+
 $app->run();
 

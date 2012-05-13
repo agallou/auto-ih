@@ -51,6 +51,8 @@ class Parser
     }
     $content = array();
 
+     libxml_use_internal_errors(true);
+
     foreach ($infos as $arrayname => $infos)
     {
       if (!isset($arrayIndexes[$arrayname]))

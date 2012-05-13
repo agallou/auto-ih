@@ -72,7 +72,7 @@ class WorkerRunEpmsi extends BaseWorker
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/table[1][@class='tabcolor']/tbody/tr[2]/td[5][@class='tabbodycnt']/a/b")->click();
 
     //selection du fichier
-    $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/form/table[1]/tbody/tr[4]/td/input")->setFile('export_genrsa.zip');
+    $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/form/table[1]/tbody/tr[4]/td/input")->setFile($this->getInfo($field, $year, 'import_file'));
 
     //click sur Envoyer
     $client->findByXPath("/html/body/table[2]/tbody/tr/td[3]/font/form/table[2]/tbody/tr/td/input")->click();

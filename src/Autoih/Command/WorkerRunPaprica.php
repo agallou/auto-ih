@@ -51,6 +51,13 @@ class WorkerRunPaprica extends BaseWorker
       rename($file->getRealPath(), $currentPath . DIRECTORY_SEPARATOR . $file->getFilename());
       break;
     }
+    $finder = new Finder();
+    $finder->files()->name('*leg.log.txt')->in($config[sprintf('paprica_%s_log_path', $year)]);
+    foreach ($finder as $file)
+    {
+      copy($file->getRealPath(), $currentPath . DIRECTORY_SEPARATOR . 'leg');
+      break;
+    }
   }
 
 }

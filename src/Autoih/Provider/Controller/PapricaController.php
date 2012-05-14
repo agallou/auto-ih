@@ -67,12 +67,19 @@ class PapricaController extends BaseController
    */
   public function getFile($okDir, $type)
   {
-    $finder = new Finder();
-    $finder->files()->name('*.zip')->in($okDir);
-    if (count($finder) == 1)
+    if ($type == 'exported_zip')
     {
-      $files = array_values(iterator_to_array($finder));
-      return $files[0];
+      $finder = new Finder();
+      $finder->files()->name('*.zip')->in($okDir);
+      if (count($finder) == 1)
+      {
+        $files = array_values(iterator_to_array($finder));
+        return $files[0];
+      }
+    }
+    if ($type == 'leg')
+    {
+      return $okDir . DIRECTORY_SEPARATOR . 'leg';
     }
     return null;
   }

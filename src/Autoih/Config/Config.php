@@ -26,6 +26,7 @@ class Config extends \Pimple
       'worker_epmsi_dir',
       'worker_paprica_dir',
       'paprica_2012_path',
+      'paprica_2012_log_path',
       'genrsa_2012_path',
       'genrsa_2011_path',
       'finess',

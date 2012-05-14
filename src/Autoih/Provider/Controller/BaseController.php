@@ -132,10 +132,10 @@ abstract class BaseController implements ControllerProviderInterface
       return json_encode($infos);
     });
 
-    $controllers->get(sprintf('/%s/M0/{id}/file/{type}', $this->getYear()), function ($id) use ($controller, $app) {
+    $controllers->get(sprintf('/%s/M0/{id}/file/{type}', $this->getYear()), function ($id, $type) use ($controller, $app) {
 
       $okDir = $controller->getWorkingDir($app) . '/ok/' . $id;
-      $file  = $controller->getFile($okDir, null);
+      $file  = $controller->getFile($okDir, $type);
 
       if (null !== $file)
       {

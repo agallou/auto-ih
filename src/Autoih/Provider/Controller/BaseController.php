@@ -95,7 +95,7 @@ abstract class BaseController implements ControllerProviderInterface
         $content = array('id' => $id);
         file_put_contents($dir . DIRECTORY_SEPARATOR . 'ok', '');
       }
-      catch (Exception $e)
+      catch (\Exception $e)
       {
         rmdir($dir);
         $status = $e->getCode();

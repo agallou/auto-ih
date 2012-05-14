@@ -51,12 +51,26 @@ class WorkerRunPaprica extends BaseWorker
       rename($file->getRealPath(), $currentPath . DIRECTORY_SEPARATOR . $file->getFilename());
       break;
     }
-    $finder = new Finder();
-    $finder->files()->name('*leg.log.txt')->in($config[sprintf('paprica_%s_log_path', $year)]);
-    foreach ($finder as $file)
+    $logFiles = array(
+      'log'              => '*1.log.txt',
+      'dif'              => '*1.dif.txt',
+      'chainage_log'     => '*1.chainage.log.txt',
+      'chainage_err'     => '*1.chainage.err.txt',
+      'err_non_bloq'     => '*1.err.non.bloq.txt',
+      'err_bloq'         => '*1.err.bloq.txt',
+      'leg'              => '*1.leg.log.txt',
+      'ehpa_jours_suppr' => '*1.ehpa.jours.suppr.csv',
+      'temps'            => 'Temps.txt',
+    );
+    foreach ($logFiles as $logName => $pattern)
     {
-      copy($file->getRealPath(), $currentPath . DIRECTORY_SEPARATOR . 'leg');
-      break;
+      $finder = new Finder();
+      $finder->files()->name($pattern)->in($config[sprintf('paprica_%s_log_path', $year)]);
+      foreach ($finder as $file)
+      {
+        copy($file->getRealPath(), $currentPath . DIRECTORY_SEPARATOR . $logName);
+        break;
+      }
     }
   }
 

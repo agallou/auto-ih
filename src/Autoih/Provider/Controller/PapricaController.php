@@ -77,9 +77,21 @@ class PapricaController extends BaseController
         return $files[0];
       }
     }
-    if ($type == 'leg')
+    $logFiles = array(
+      'log',
+      'dif',
+      'chainage_log',
+      'chainage_err',
+      'err_non_bloq',
+      'err_bloq',
+      'leg',
+      'ehpa_jours_suppr',
+      'temps',
+    );
+
+    if (in_array($type, $logFiles))
     {
-      return $okDir . DIRECTORY_SEPARATOR . 'leg';
+      return $okDir . DIRECTORY_SEPARATOR . $type;
     }
     return null;
   }

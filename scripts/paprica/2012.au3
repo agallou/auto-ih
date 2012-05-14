@@ -58,10 +58,6 @@ While True
    If WinExists("[CLASS:Notepad]") Then
 	  WinActivate("[CLASS:Notepad]")
 	  WinClose("[CLASS:Notepad]")
-	  If WinExists("[CLASS:Notepad]") And WinExists("PAPRICA - Contrôle du fichier RPSS") <> 0 Then
-	  Else
-		 ExitLoop
-	  EndIf
    EndIf
    If WinExists("PAPRICA - Information") Then
 	  ExitLoop

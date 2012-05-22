@@ -52,14 +52,14 @@ class WorkerRunPaprica extends BaseWorker
       break;
     }
     $logFiles = array(
-      'log'              => '*1.log.txt',
-      'dif'              => '*1.dif.txt',
-      'chainage_log'     => '*1.chainage.log.txt',
-      'chainage_err'     => '*1.chainage.err.txt',
-      'err_non_bloq'     => '*1.err.non.bloq.txt',
-      'err_bloq'         => '*1.err.bloq.txt',
-      'leg'              => '*1.leg.log.txt',
-      'ehpa_jours_suppr' => '*1.ehpa.jours.suppr.csv',
+      'log'              => '*.log.txt',
+      'dif'              => '*.dif.txt',
+      'chainage_log'     => '*.chainage.log.txt',
+      'chainage_err'     => '*.chainage.err.txt',
+      'err_non_bloq'     => '*.err.non.bloq.txt',
+      'err_bloq'         => '*.err.bloq.txt',
+      'leg'              => '*.leg.log.txt',
+      'ehpa_jours_suppr' => '*.ehpa.jours.suppr.csv',
       'temps'            => 'Temps.txt',
     );
     foreach ($logFiles as $logName => $pattern)

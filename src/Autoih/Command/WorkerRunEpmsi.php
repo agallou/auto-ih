@@ -41,9 +41,21 @@ class WorkerRunEpmsi extends BaseWorker
     $config = $this->getApplication()->getConfig();
     $field = $input->getArgument('field');
 
-    $fileGenrsa = $config['sahi_userdata'] . '/' . $this->getInfo($field, $year, 'import_file');
-    $fileEpmsi  = $currentPath .'/export_epmsi.zip';
-    copy($currentPath .'/' . $this->getInfo($field, $year, 'import_file'), $fileGenrsa);
+    $fileEpmsiSahi = $config['sahi_userdata'] . '/export_epmsi.zip';
+    $fileGenrsaSahi= $config['sahi_userdata'] . '/' . $this->getInfo($field, $year, 'import_file');
+
+    if (is_file($fileEpmsiSahi))
+    {
+      unlink($fileEpmsiSahi);
+    }
+
+    if (is_file($fileGenrsaSahi))
+    {
+      unlink($fileGenrsaSahi);
+    }
+
+    $fileEpmsi = $currentPath .'/export_epmsi.zip';
+    copy($currentPath .'/' . $this->getInfo($field, $year, 'import_file'), $fileGenrsaSahi);
 
     $connection = new \Behat\SahiClient\Connection(null, $config['sahi_host']);
     $client     = new \Behat\SahiClient\Client($connection);
@@ -118,7 +130,9 @@ class WorkerRunEpmsi extends BaseWorker
     $connection->executeStep(sprintf("_sahi._saveDownloadedAs('%s')", 'export_epmsi.zip')); // save to another path
 
     $client->stop();
-    copy($config['sahi_userdata'] . '/export_epmsi.zip', $fileEpmsi);
+    copy($fileEpmsiSahi, $fileEpmsi);
+    unlink($fileEpmsiSahi);
+    unlink($fileGenrsaSahi);
   }
 
   /**

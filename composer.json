@@ -8,8 +8,14 @@
     "symfony/finder": "2.*",
     "symfony/yaml": "2.*",
     "pimple/pimple" : "*",
-    "behat/sahi-client": "*"
+    "behat/sahi-client": "dev-set_timeout"
   },
+  "repositories": [
+    {
+      "type"    : "vcs",
+      "url"      : "git@github.com:agallou/SahiClient.git"
+    }
+  ],
   "autoload": {
     "psr-0": { "Autoih": "src/" }
   }

@@ -57,7 +57,7 @@ class WorkerRunEpmsi extends BaseWorker
     $fileEpmsi = $currentPath .'/export_epmsi.zip';
     copy($currentPath .'/' . $this->getInfo($field, $year, 'import_file'), $fileGenrsaSahi);
 
-    $connection = new \Behat\SahiClient\Connection(null, $config['sahi_host']);
+    $connection = new \Behat\SahiClient\Connection(null, $config['sahi_host'], 9999, null, 24000);
     $client     = new \Behat\SahiClient\Client($connection);
     $client->start('firefox');
     $url = 'https://www.epmsi.atih.sante.fr';
